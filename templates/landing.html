@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vāk - AI Mentorship Platform</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background-color: #fafafa;
+      color: #222;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 50px;
+      font-size: 30px;
+      font-weight: 700;
+      color: #5b36f5;
+    }
+
+    /* Container to keep text + cursor aligned properly */
+    .typewriter {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      white-space: pre-wrap;
+      max-width: 80%;
+      flex-wrap: nowrap;
+    }
+
+    .quote {
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: left;
+      word-break: break-word;
+    }
+
+    .cursor {
+      width: 3px;
+      height: 1.2em;
+      background-color: #5b36f5;
+      margin-left: 3px;
+      animation: blink 0.8s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .cursor.fade {
+      animation: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .bottom-text {
+      position: absolute;
+      bottom: 50px;
+      font-size: 1.1em;
+      color: #444;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .bottom-text.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .user-options {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .user-options.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .option-card {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 30px 50px;
+      border-radius: 18px;
+      font-size: 1.2em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .option-card:hover {
+      background-color: #5b36f5;
+      color: white;
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">Vāk</div>
+
+  <div class="typewriter">
+    <div id="quote" class="quote"></div>
+    <div id="cursor" class="cursor"></div>
+  </div>
+
+  <div class="user-options" id="userOptions">
+    <div class="option-card" onclick="goTo('new')">New User?</div>
+    <div class="option-card" onclick="goTo('active')">Active User?</div>
+    <div class="option-card" onclick="goTo('guest')">Guest User?</div>
+  </div>
+
+  <div id="bottomText" class="bottom-text">One stop solution for all your needs</div>
+
+  <script>
+    const text = "AI mentorship, in every Indian language — that’s the promise of Vāk.";
+    const quote = document.getElementById("quote");
+    const cursor = document.getElementById("cursor");
+    const bottom = document.getElementById("bottomText");
+    const userOptions = document.getElementById("userOptions");
+
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        quote.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 40);
+      } else {
+        cursor.classList.add("fade");
+        setTimeout(() => bottom.classList.add("show"), 400);
+        setTimeout(() => userOptions.classList.add("show"), 800);
+      }
+    }
+
+    window.onload = typeWriter;
+
+   function goTo(type) {
+  if (type === "new") {
+    window.location.href = "/register";  // ✅ Flask route
+  } else if (type === "active") {
+    window.location.href = "/authenticate";  // ✅ Flask route
+  } else {
+    alert("Guest mode coming soon!");
+  }
+}
+
+
+
+  </script>
+</body>
+</html>
