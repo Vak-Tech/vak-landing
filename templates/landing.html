@@ -1,168 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vāk - AI Mentorship Platform</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vāk – AI Mentorship Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: "Inter", sans-serif;
-      background-color: #fafafa;
-      color: #222;
-      overflow: hidden;
-      height: 100vh;
+      background-color: #ffffff;
+      color: #0a0a0a;
+      scroll-behavior: smooth;
+    }
+
+    /* -------------------------------- NAVBAR -------------------------------- */
+    header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px 8%;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #f0f0f0;
     }
 
     .logo {
-      position: absolute;
-      top: 30px;
-      left: 50px;
-      font-size: 30px;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8em;
+      font-weight: 800;
+      color: #5b36f5;
+      cursor: pointer;
+    }
+
+    .logo img {
+      width: 48px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
       color: #5b36f5;
     }
 
-    /* Container to keep text + cursor aligned properly */
-    .typewriter {
+    /* -------------------------------- HERO SECTION -------------------------------- */
+    .hero {
+      text-align: center;
+      padding: 140px 8% 120px;
+      background: white;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #f5f3ff;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #5b36f5;
+      margin-bottom: 35px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #0a0a0a;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+
+    .highlight {
+      color: #5b36f5;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: #4a4a4a;
+      max-width: 650px;
+      margin: 0 auto 50px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .cta-buttons {
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      white-space: pre-wrap;
-      max-width: 80%;
-      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 90px;
     }
 
-    .quote {
-      font-size: 2em;
+    .btn {
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
       font-weight: 700;
-      line-height: 1.4;
-      text-align: left;
-      word-break: break-word;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
     }
 
-    .cursor {
-      width: 3px;
-      height: 1.2em;
-      background-color: #5b36f5;
-      margin-left: 3px;
-      animation: blink 0.8s steps(2, start) infinite;
+    .primary-btn {
+      background: #5b36f5;
+      color: white;
     }
 
-    @keyframes blink {
-      50% { opacity: 0; }
+    .primary-btn:hover {
+      background: #4a2bd1;
+      transform: translateY(-2px);
     }
 
-    .cursor.fade {
-      animation: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .secondary-btn {
+      background: white;
+      color: #5b36f5;
+      border: 2px solid #5b36f5;
     }
 
-    .bottom-text {
-      position: absolute;
-      bottom: 50px;
-      font-size: 1.1em;
-      color: #444;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease;
+    .secondary-btn:hover {
+      background: #5b36f5;
+      color: white;
+      transform: translateY(-2px);
     }
 
-    .bottom-text.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    /* -------------------------------- OPTIONS CARDS -------------------------------- */
     .user-options {
       display: flex;
       justify-content: center;
-      gap: 50px;
-      margin-top: 60px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .user-options.show {
-      opacity: 1;
-      transform: translateY(0);
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .option-card {
       background: white;
-      border: 1px solid #ddd;
-      padding: 30px 50px;
-      border-radius: 18px;
-      font-size: 1.2em;
-      font-weight: 500;
+      border: 2px solid #e8e8e8;
+      padding: 22px 45px;
+      border-radius: 12px;
+      font-size: 1.05em;
+      font-weight: 700;
       cursor: pointer;
-      transition: 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      color: #1a1a1a;
     }
 
     .option-card:hover {
-      background-color: #5b36f5;
+      background: #5b36f5;
       color: white;
-      transform: translateY(-5px);
+      border-color: #5b36f5;
+      transform: translateY(-3px);
+    }
+
+    /* -------------------------------- SECTIONS -------------------------------- */
+    section {
+      padding: 100px 8%;
+      text-align: center;
+    }
+
+    section:nth-child(even) {
+      background: #fafafa;
+    }
+
+    section h2 {
+      font-size: 2.8em;
+      font-weight: 800;
+      color: #5b36f5;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    section p {
+      max-width: 720px;
+      margin: 0 auto;
+      color: #2a2a2a;
+      line-height: 1.75;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    /* -------------------------------- FOOTER -------------------------------- */
+    .footer {
+      background: white;
+      padding: 40px 8%;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #4a4a4a;
+      border-top: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+
+    /* -------------------------------- RESPONSIVE -------------------------------- */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+        letter-spacing: -1px;
+      }
+
+      .hero-sub {
+        font-size: 1.1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 5%;
+      }
+
+      .user-options {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 5%;
+      }
+
+      .option-card {
+        width: 100%;
+      }
+
+      section h2 {
+        font-size: 2em;
+      }
+
+      .nav-links {
+        gap: 20px;
+        font-size: 0.85em;
+      }
+
+      header {
+        padding: 20px 5%;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="logo">Vāk</div>
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='vaklogo.png') }}" alt="Vāk Logo" onerror="this.style.display='none'" />
+      Vāk
+    </div>
 
-  <div class="typewriter">
-    <div id="quote" class="quote"></div>
-    <div id="cursor" class="cursor"></div>
+    <nav class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#market">Market</a>
+      <a href="#advantage">Why Vāk</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-badge">✨ AI-Powered Learning</div>
+    
+    <h1 class="hero-title">
+      Master coding with <span class="highlight">AI mentorship</span> in your language
+    </h1>
+
+    <p class="hero-sub">
+      Personalized learning paths, AI mentors, and real-time guidance — designed for every Indian student
+    </p>
+
+    <div class="cta-buttons">
+      <button class="btn primary-btn" onclick="goTo('new')">Start Learning</button>
+      <button class="btn secondary-btn" onclick="document.getElementById('whyvak').scrollIntoView()">Why Vāk?</button>
+    </div>
+
+    <div class="user-options">
+      <div class="option-card" onclick="goTo('new')">New User?</div>
+      <div class="option-card" onclick="goTo('active')">Active User?</div>
+      <div class="option-card" onclick="goTo('guest')">Guest User?</div>
+    </div>
   </div>
 
-  <div class="user-options" id="userOptions">
-    <div class="option-card" onclick="goTo('new')">New User?</div>
-    <div class="option-card" onclick="goTo('active')">Active User?</div>
-    <div class="option-card" onclick="goTo('guest')">Guest User?</div>
-  </div>
+  <!-- PROBLEM -->
+  <section id="problem">
+    <h2>The Problem</h2>
+    <p>Millions of students struggle with coding because learning resources are in English, guidance is limited, and the curriculum doesn't match industry needs.</p>
+  </section>
 
-  <div id="bottomText" class="bottom-text">One stop solution for all your needs</div>
+  <!-- SOLUTION -->
+  <section id="solution">
+    <h2>Our Solution</h2>
+    <p>AI-powered mentorship in your own language — personalized explanations, goal-based learning, and continuous support.</p>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market">
+    <h2>Market Potential</h2>
+    <p>The EdTech market in India is a $2B opportunity, but regional-language learners remain underserved. Vāk bridges that gap.</p>
+  </section>
+
+  <!-- ADVANTAGE -->
+  <section id="advantage">
+    <h2 id="whyvak">Why Vāk?</h2>
+    <p>Multilingual AI mentors, personalized course plans, real-time feedback, and job-focused preparation.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2025 Vāk Technologies • Empowering students in every language
+  </div>
 
   <script>
-    const text = "AI mentorship, in every Indian language — that’s the promise of Vāk.";
-    const quote = document.getElementById("quote");
-    const cursor = document.getElementById("cursor");
-    const bottom = document.getElementById("bottomText");
-    const userOptions = document.getElementById("userOptions");
-
-    let index = 0;
-
-    function typeWriter() {
-      if (index < text.length) {
-        quote.textContent += text.charAt(index);
-        index++;
-        setTimeout(typeWriter, 40);
-      } else {
-        cursor.classList.add("fade");
-        setTimeout(() => bottom.classList.add("show"), 400);
-        setTimeout(() => userOptions.classList.add("show"), 800);
-      }
+    function goTo(type) {
+      if (type === "new") window.location.href = "/register";
+      else if (type === "active") window.location.href = "/authenticate";
+      else alert("Guest mode coming soon!");
     }
-
-    window.onload = typeWriter;
-
-   function goTo(type) {
-  if (type === "new") {
-    window.location.href = "/register";  // ✅ Flask route
-  } else if (type === "active") {
-    window.location.href = "/authenticate";  // ✅ Flask route
-  } else {
-    alert("Guest mode coming soon!");
-  }
-}
-
-
-
   </script>
 </body>
 </html>
